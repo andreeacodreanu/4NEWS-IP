@@ -1,0 +1,38 @@
+﻿@model ProiectIP.Models.Comment
+
+@{
+    ViewBag.Titlu = "4NEWS ";
+    Layout = "~/Views/Shared/_mytemplate.cshtml";
+
+}
+
+
+@*<div class="centerForm">*@
+<section class="breadcrumb_section">
+    <div class="container">
+        <div class="row">
+            @if (ViewBag.afisareButoane == true && Model.UserId == ViewBag.utilizatorCurent || ViewBag.esteAdmin)
+            {
+                <form method="post" action="/Article/Delete/@Model.ArticleId">
+                    <a class="btn btn-pink" href="/Article/Edit/@Model.ArticleId">
+                        Modify article
+                    </a> &nbsp
+                    @Html.HttpMethodOverride(HttpVerbs.Delete)
+                    <button class="btn btn-pink" type="submit">Delete article</button>
+                </form>
+            }
+
+        </div>
+    </div>
+</section>
+<section id="category_section" class="category_section">
+    <div class="container">
+        <div class="row">
+
+            @Html.Partial("sectiuneStangaStire")
+            @Html.Partial("sectiuneDreaptaCategorii")
+        </div>
+        <!-- Container -->
+    </div>
+</section>
+@*</div>*@

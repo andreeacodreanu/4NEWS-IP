@@ -1,0 +1,80 @@
+﻿@model ProiectIP.Models.Article
+
+@{
+    ViewBag.Titlu = "4NEWS ";
+    Layout = "~/Views/Shared/_mytemplate.cshtml";
+
+}
+
+
+<div class="centerForm">
+
+    <table>
+        <tr>
+            <form method="post" action="/Article/Delete/@Model.Id">
+                @Html.HttpMethodOverride(HttpVerbs.Delete)
+                <button class="btn btn-pink" type="submit">Delete article</button>
+            </form>
+        </tr>
+        &nbsp;
+        <tr>
+            <form method="post" action="/Article/ShowNotApproved/@Model.Id">
+                @Html.HiddenFor(m => m.Id)
+                @Html.HiddenFor(m => m.Title)
+                @Html.HiddenFor(m => m.UserId)
+                @Html.HiddenFor(m => m.Content)
+                @Html.HiddenFor(m => m.CategoryId)
+                @Html.HiddenFor(m => m.Image)
+                @Html.HiddenFor(m => m.Date)
+                <button class="btn btn-pink" type="submit">Approve article</button>
+            </form>
+        </tr>
+    </table>
+    @*<form method="post" action="/Article/Delete/@Model.Id">
+        @Html.HttpMethodOverride(HttpVerbs.Delete)
+        <button class="btn btn-pink" type="submit">Delete article</button>
+    </form>
+    <form method="post" action="/Article/ShowNotApproved/@Model.Id">
+        @Html.HiddenFor(m => m.Id)
+        @Html.HiddenFor(m => m.Title)
+        @Html.HiddenFor(m => m.UserId)
+        @Html.HiddenFor(m => m.Content)
+        @Html.HiddenFor(m => m.CategoryId)
+        @Html.HiddenFor(m => m.Image)
+        @Html.HiddenFor(m => m.Date)
+        <button class="btn btn-pink" type="submit">Approve article</button>
+    </form>*@
+
+    <section id="category_section" class="category_section">
+        <div class="entity_title">
+
+            <h1>@Model.Title</h1>
+        </div>
+        <!-- entity_title -->
+
+        <div class="entity_meta">
+            @Model.Date
+        </div>
+        <!-- entity_meta -->
+        @{
+            if (Model.Image != null)
+            {
+                <div class="entity_thumb">
+
+                    <img class="aaa" src="~/Content/mytemplate/img/@Url.Content(Model.Image)" alt="feature-top">
+                </div>
+            }
+        }
+        <!-- entity_thumb -->
+
+        <div class="entity_content">
+            <p>
+                @Model.Content
+            </p>
+
+        </div>
+    </section>
+
+
+</div>
+
