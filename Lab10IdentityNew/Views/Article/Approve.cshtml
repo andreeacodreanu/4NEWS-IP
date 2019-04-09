@@ -1,0 +1,95 @@
+﻿@model ProiectIP.Models.Article
+@{
+
+    Layout = "~/Views/Shared/_mytemplate.cshtml";
+}
+<style>
+    img {
+        max-width: 100%;
+        max-height: 100%;
+    }
+
+    .smallRight {
+        height: 150px;
+        width: 150px;
+    }
+</style>
+<div class="centerForm">
+    <div class="d-inline">
+
+
+        @foreach (var item in ViewBag.Articles)
+        {
+        <div class="media">
+            <div class="media-left">
+                <a href="ShowNotApproved/@item.Id">
+                    <div class="smallRight">
+
+                        <img class="media-object" src="~/Content/mytemplate/img/@Url.Content(item.Image)" alt="Generic placeholder image">
+                    </div>
+                </a>
+            </div>
+            <div class="media-body">
+                <h3 class="media-heading">
+                    <a href="ShowNotApproved/@item.Id" target="_blank">@item.Title.ToString().ToUpper()e</a>
+                </h3> <span class="media-date">@item.Date<br />by: @item.User.UserName</span>
+                <div class="entity_content">
+                    @{
+                        var text = "";
+                        if (item.Content.Length > 150)
+                        {
+                            text = item.Content.Substring(0, 150);
+                            text = text + "...";
+
+                        }
+                        else
+                        {
+                            text = item.Content;
+                        }
+                    }
+                    @text
+                </div>
+            </div>
+            <form method="post" action="/Article/Delete/@item.Id" style="float:right">
+                <a class="btn btn-pink" href="/Article/ShowNotApproved/@item.Id">
+                    Show article
+                </a> &nbsp
+                @Html.HttpMethodOverride(HttpVerbs.Delete)
+                <button class="btn btn-pink" type="submit">Delete article</button>
+            </form>
+        </div>
+
+
+            @*<a href="ShowNotApproved/@article.Id">@article.Title.ToString().ToUpper()</a>
+            <form method="post" action="/Article/Delete/@article.Id" style="float:right">
+                <a class="btn btn-pink" href="/Article/ShowNotApproved/@article.Id">
+                    Show article
+                </a> &nbsp
+                @Html.HttpMethodOverride(HttpVerbs.Delete)
+                <button class="btn btn-pink" type="submit">Delete article</button>
+            </form>
+            <div class="entity_content">
+                @{
+                    var text = "";
+                    if (article.Content.Length > 150)
+                    {
+                        text = article.Content.Substring(0, 150);
+                        text = text + "...";
+
+                    }
+                    else
+                    {
+                        text = article.Content;
+                    }
+                }
+                @text
+            </div>*@
+            <hr />
+
+        }
+    </div>
+
+
+
+</div>
+

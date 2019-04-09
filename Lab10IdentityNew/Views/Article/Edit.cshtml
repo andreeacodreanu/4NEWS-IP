@@ -1,0 +1,58 @@
+﻿@model ProiectIP.Models.Article
+
+@{
+    Layout = "~/Views/Shared/_mytemplate.cshtml";
+}
+<style>
+    .centerForm {
+        margin: auto;
+        width: 50%;
+        padding: 10px;
+    }
+</style>
+<div class="centerForm">
+    <ol class="breadcrumb">
+        <li><h3>EDIT THE ARTICLE</h3></li>
+    </ol>
+    <form method="post" action="/Article/Edit/@Model.Id" enctype="multipart/form-data">
+        <div class="panel-body">
+
+
+            @Html.HttpMethodOverride(HttpVerbs.Put)
+            @*@Html.ValidationSummary(false, "", new { @class = "text-danger" })*@
+            @Html.HiddenFor(m => m.Id)
+
+            @Html.Label("Title", "Article title")
+            <br />
+            @Html.EditorFor(m => m.Title)
+            @Html.ValidationMessageFor(model => model.Title, "Title is required", new { @class = "text-danger " })
+            <br /><br />
+            @Html.Label("Content", "Article content")
+            <br />
+            @Html.EditorFor(m => m.Content)
+            @Html.ValidationMessageFor(model => model.Content, "Content is required", new { @class = "text-danger " })
+            <br /><br />
+            @Html.HiddenFor(m => m.Date)
+
+            <label>Select category</label>
+            @Html.DropDownListFor(m => m.CategoryId, new SelectList(Model.Categories, "Value", "Text"), "Select category", new { @class = "form-control" })
+            @if (ViewBag.categExista == 0)
+            {@Html.ValidationMessageFor(model => model.CategoryId, "Category is required", new { @class = "text-danger " })}
+            
+            <br />
+            <label>Select image</label>
+
+            @Html.TextBox("Image", null, new { type = "file" })
+
+            @Html.HiddenFor(m => m.Image)
+
+
+            @*@Html.ValidationMessageFor(model => model.Image, null, new { @class = "text-danger " })*@
+            <br />
+        </div>
+            <div class="panel-footer">
+                <button class="btn btn-pink" type="submit">Edit article</button>
+            </div>
+</form>
+</div>
+

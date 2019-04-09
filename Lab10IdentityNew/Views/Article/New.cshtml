@@ -1,0 +1,58 @@
+﻿@model ProiectIP.Models.Article
+@{
+    
+    Layout = "~/Views/Shared/_mytemplate.cshtml";
+}
+
+<style>
+    .centerForm {
+        margin: auto;
+        width: 50%;
+        padding: 10px;
+    }
+</style>
+<div class="centerForm">
+    <ol class="breadcrumb">
+        <li><h3>CREATE A NEW ARTICLE</h3></li>
+    </ol>
+    <form method="post" action="/Article/New" enctype="multipart/form-data">
+        <div class="panel-body">
+            @Html.HiddenFor(m => m.UserId)
+
+            @*@Html.ValidationSummary(false, "", new { @class = "text-danger" })*@
+
+            @Html.Label("Title", "Article title")
+            <br />
+            @Html.TextBox("Title", null, new { @class = "form-control" })
+            @Html.ValidationMessageFor(model => model.Title, "Title is required!", new { @class = "text-danger " })
+            <br /><br />
+            @Html.Label("Content", "Article content")
+            <br />
+            @Html.TextArea("Content", null, new { @class = "form-control" })
+            @Html.ValidationMessageFor(model => model.Content, "Article content is required", new { @class = "text-danger " })
+
+            <br /><br />
+            @Html.Label("Link", "Link to article")
+            <br />
+            @Html.TextBox("Link", null, new { @class = "form-control" })
+            @Html.ValidationMessageFor(model => model.Link, null, new { @class = "text-danger " })
+
+            <br /><br />
+            @Html.Hidden("Date", DateTime.Now, new { @class = "form-control" })
+            <label>Select category</label>
+            @Html.DropDownListFor(m => m.CategoryId, new SelectList(Model.Categories, "Value", "Text"), "Select category", new { @class = "form-control" })
+            @if (ViewBag.categExista == 0)
+            {@Html.ValidationMessageFor(model => model.CategoryId, "Category is required", new { @class = "text-danger " })}
+            <br /><br />
+            <label>Select image</label>
+
+            @Html.TextBox("Image", null, new { type = "file" })
+            @Html.ValidationMessageFor(model => model.Image, null, new { @class = "text-danger " })
+
+            <br />
+        </div>
+        <div class="panel-footer">
+            <button class="btn btn-pink" type="submit">Add article</button>
+        </div>
+    </form>
+</div>

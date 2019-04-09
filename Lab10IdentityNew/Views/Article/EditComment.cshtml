@@ -1,0 +1,41 @@
+﻿@model ProiectIP.Models.Comment
+
+@{
+    Layout = "~/Views/Shared/_mytemplate.cshtml";
+}
+<style>
+    .centerForm {
+        margin: auto;
+        width: 50%;
+        padding: 10px;
+    }
+</style>
+<div class="centerForm">
+    <ol class="breadcrumb">
+        <li><h3>EDIT THE COMMENT</h3></li>
+    </ol>
+    <form method="post" action="/Article/EditComment/@Model.CommentId" >
+        <div class="panel-body">
+
+
+            @Html.HttpMethodOverride(HttpVerbs.Put)
+            @Html.ValidationSummary(false, "", new { @class = "text-danger" })
+            @Html.HiddenFor(m => m.CommentId)
+            <br />
+            @Html.Label("CommentCotent", "Comment Content")
+            <br />
+            @Html.EditorFor(m => m.CommentContent)
+            @Html.ValidationMessageFor(model => model.CommentContent, "Comment content is required", new { @class = "text-danger " })
+            <br />
+            @Html.HiddenFor(m => m.CommentDate)
+            <br />
+            @Html.HiddenFor(m => m.ArticleId)
+
+        </div>
+        <div class="panel-footer">
+            <button class="btn btn-pink" type="submit">Edit comment</button>
+        </div>
+    </form>
+</div>
+
+
