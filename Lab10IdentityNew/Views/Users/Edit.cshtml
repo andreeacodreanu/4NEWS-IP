@@ -1,0 +1,57 @@
+﻿@model ProiectIP2019.Models.ApplicationUser
+@{
+     ViewBag.Title = "Edit user";
+     Layout = "~/Views/Shared/_mytemplate.cshtml";
+}
+<style>
+    .centerForm {
+        margin: auto;
+        width: 50%;
+        padding: 10px;
+    }
+</style>
+<div class="centerForm">
+    
+    <ol class="breadcrumb">
+        <li><h3>@ViewBag.Title</h3></li>
+    </ol>
+    <form method="post" action="/Users/Edit/@Model.Id">
+        <div class="form-group">
+            @Html.HttpMethodOverride(HttpVerbs.Put)
+            @Html.HiddenFor(m => m.Id)
+            <br />
+            <i class="glyphicon glyphicon-user"></i>
+            @Html.Label("UserName", "User name", new { @class = "" })
+            <br />
+            @Html.EditorFor(m => m.UserName, new { @class = "form-control" })
+            @if (ViewBag.UserName == null)
+            {<div class="text-danger">"UserName is required"</div>
+                @*@Html.ValidationMessageFor(model => model.UserName, "UserName is required", new { @class = "text-danger " })*@}
+            <br /><br />
+            <i class="glyphicon glyphicon-envelope"></i>
+            @Html.Label("Email", "Email", new { @class = "" })
+            <br />
+            @Html.EditorFor(m => m.Email, new { @class = "form-control" })
+            @if (ViewBag.Email == null)
+            {<div class="text-danger">"Email is required"</div>
+                @*@Html.ValidationMessageFor(model => model.Email, "Email is required", new { @class = "text-danger " })*@}
+            @if (ViewBag.FalseEmail == 1)
+            {<div class="text-danger">"Invalid Email"</div>}
+            <br /><br />
+            <i class="glyphicon glyphicon-phone"></i>
+            @Html.Label("PhoneNumber", "Phone number")
+            <br />
+            @Html.EditorFor(m => m.PhoneNumber, new { @class = "form-control" })
+            @if (ViewBag.Phone == 1)
+            {<div class="text-danger">"Invalid PhoneNumber"</div>}
+            <br /><br />
+            <i class="glyphicon glyphicon-th-list"></i>
+            <label>Select user role</label>
+            @Html.DropDownList("newRole", new SelectList(Model.AllRoles, "Value", "Text", (string)ViewBag.userRole), null, new { @class = "form-control" })
+            <br />
+
+            <button class="btn btn-sm btn-pink" type="submit">Save changes</button>
+        </div>
+    </form>
+
+</div>
