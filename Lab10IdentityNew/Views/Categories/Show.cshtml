@@ -1,0 +1,99 @@
+﻿@model ProiectIP.Models.Category
+
+
+@{
+    ViewBag.Title = "4NEWS " + Model.CategoryName;
+    Layout = "~/Views/Shared/_mytemplate.cshtml";
+}
+
+<style>
+    .centerForm {
+        margin: auto;
+        width: 50%;
+        padding: 10px;
+    }
+
+    .pos {
+        display: inline-block;
+    }
+</style>
+@*<div class="row centerForm">
+
+
+
+    @foreach (var article in ViewBag.articles)
+    {
+        <p>@article.Title</p>
+    }
+
+    <hr />
+    <a class="btn btn-sm border border-dark" href="/Article/Index">Back to newsfeed</a>
+    <br />
+</div>*@
+
+<section class="breadcrumb_section">
+    <div class="container">
+        <div class="row">
+            <table>
+                @if (HttpContext.Current.User.IsInRole("Administrator"))
+                {
+
+
+                    <tr>
+                        <form method="post" action="/Categories/Edit/@Model.CategoryId">
+
+                            <button class="btn btn-pink" type="submit">Edit category</button>
+                        </form>
+                    </tr>
+                    <tr>
+                        <form method="post" action="/Categories/Delete/@Model.CategoryId">
+                            @Html.HttpMethodOverride(HttpVerbs.Delete)
+                            <button class="btn btn-pink" type="submit">Delete category</button>
+                        </form>
+                    </tr>
+
+
+
+                }
+
+                <tr>
+                    <div class="dropdown">
+                        <form action="/Categories/Show/@Model.CategoryId" method="post">
+
+                            @*<input type="submit" value="Sort" />*@
+                            <button class="btn btn-pink" type="submit">Sort</button>
+                            <select id="SortType" name="SortType">
+                                <option>By</option>
+                                <option value="Name">Name</option>
+                                <option value="Date">Date</option>
+                            </select>
+
+
+                            <select id="OrderBy" name="OrderBy">
+                                <option>In</option>
+                                <option value="Ascending">Ascending</option>
+                                <option value="Descending">Descending</option>
+                            </select>
+
+
+
+                        </form>
+                    </div>
+                </tr>
+
+            </table>
+
+        </div>
+    </div>
+</section>
+
+<div class="container">
+    <div class="row">
+
+        @Html.Partial("sectiuneStangaCategorii")
+
+        @Html.Partial("sectiuneDreaptaCategorii")
+    </div>
+    <!-- row -->
+</div>
+<!-- container -->

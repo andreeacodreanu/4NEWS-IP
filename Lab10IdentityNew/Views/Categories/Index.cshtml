@@ -1,0 +1,30 @@
+﻿@{
+    ViewBag.Titlu = "4NEWS All Categories";
+    Layout = "~/Views/Shared/_mytemplate.cshtml";
+}
+
+<div class="centerForm">
+    <div class="d-inline">
+        @if (TempData.ContainsKey("message"))
+        {
+            <h3 class="alert @TempData["color"].ToString()" role="alert">@ViewBag.message</h3>
+        }
+
+        @foreach (var category in ViewBag.Categories)
+        {
+            <div class="d-inline">
+                <p><i class="glyphicon glyphicon-list-alt"></i> Category Name: <span class="label label-default">@category.CategoryName</span> </p>
+                <br />
+                <a class="btn btn-pink" href="/Categories/Show/@category.CategoryId">Show category</a>
+                <br />
+                <hr />
+                
+            </div>
+         }
+    </div>
+    @if (HttpContext.Current.User.IsInRole("Administrator"))
+    {<a class="btn btn-pink" href="/Categories/New">Add category</a>}
+    <br />
+
+ </div>
+
