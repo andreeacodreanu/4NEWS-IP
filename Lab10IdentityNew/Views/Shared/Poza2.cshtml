@@ -1,0 +1,72 @@
+﻿@model ProiectIP.Models.Article
+<div class="feature_static_wrapper">
+    <div class="feature_article_img">
+        <img class="img-responsive" src="@Url.Content("~/Content/mytemplate/")img/map3_2.jpg" alt="feature-top">
+    </div>
+    <!-- feature_article_img -->
+    <div class="feature_article_inner">
+        <div class="tag_lg pink"><a>Top Viewed</a></div>
+        <div class="feature_article_title">
+            <h3>
+                <a href="~/Article/Show/@Model.Id" target="_self">
+                    @{
+                        var text1 = "";
+                        var ok1 = 0;
+                        if (Model.Title.Length > 45)
+                        {
+                            text1 = Model.Title.Substring(0, 45);
+                            ok1 = 1;
+                        }
+                        else
+                        {
+                            text1 = Model.Title;
+                        }
+                    }
+                    @text1
+                    @{
+                        if (ok1 == 1)
+                        {
+                            <a href="Show/@Model.Id">...</a>
+                        }
+                    }
+                </a>
+            </h3>
+        </div>
+        <!-- feature_article_title -->
+        <div class="feature_article_date">
+            <a> @Model.User.UserName</a>,
+            <a>
+                @Model.Date
+            </a>
+        </div>
+        <!-- feature_article_date -->
+        <div class="feature_article_content">
+            @{
+                var text = "";
+                var ok = 0;
+                if (Model.Content.Length > 85)
+                {
+                    text = Model.Content.Substring(0, 85);
+                    ok = 1;
+                }
+                else
+                {
+                    text = Model.Content;
+                }
+            }
+            @text
+            @{
+                if (ok == 1)
+                {
+                    <a href="Show/@Model.Id">...</a>
+                }
+            }
+        </div>
+        <!-- feature_article_content -->
+        <div class="article_social">
+            <span><i class="fa fa-comments-o"></i><a href="Show/@Model.Id#my_anchor">@ViewBag.poza2</a>Comments</span>
+        </div>
+        <!-- article_social -->
+    </div>
+    <!-- feature_article_inner -->
+</div>

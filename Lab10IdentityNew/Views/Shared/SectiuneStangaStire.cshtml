@@ -1,0 +1,167 @@
+﻿<style>
+    img {
+        max-width: 100%;
+        max-height: 100%;
+    }
+
+    .smallRight {
+        height: 150px;
+        width: 150px;
+    }
+</style>
+<div class="col-md-8">
+    <div class="entity_wrapper">
+        <div class="entity_title">
+
+            <h1>@ViewBag.ArticleTitle</h1>
+        </div>
+        <!-- entity_title -->
+
+        <div class="entity_meta">
+            @ViewBag.ArticleDate, by: @ViewBag.ArticleUser
+        </div>
+        <!-- entity_meta -->
+        @{
+            if (ViewBag.ArticleImage != null)
+            {
+                <div class="entity_thumb">
+
+                    <img class="aaa" src="~/Content/mytemplate/img/@Url.Content(ViewBag.ArticleImage)" alt="feature-top">
+                </div>
+            }
+        }
+        <!-- entity_thumb -->
+
+        <div class="entity_content">
+            <p>
+                @ViewBag.ArticleContent
+            </p>
+
+        </div>
+        <!-- entity_content -->
+
+        <div class="entity_footer">
+            <div class="entity_tag">
+                <span class="blank"><a href="~/Categories/Show/@ViewBag.Category.CategoryId">@ViewBag.Category.CategoryName</a></span>
+
+            </div>
+            <!-- entity_tag -->
+
+            <div class="entity_social">
+                @{
+
+                    int count = 0;
+                    foreach (var item in ViewBag.Comments)
+                    {
+                        count = count + 1;
+                    }
+                    <i class="fa fa-comments-o"></i> <a>@count Comments</a>
+                }
+            </div>
+            <!-- entity_social -->
+
+        </div>
+        <!-- entity_footer -->
+
+    </div>
+    <!-- entity_wrapper -->
+
+    <div class="related_news">
+        <div class="entity_inner__title">
+            <h2>Related News</h2>
+        </div>
+        <!-- entity_title -->
+
+        <div class="row">
+            @{var i = 1;
+
+
+                    foreach (var item in ViewBag.articlesRelatedNews)
+                    {
+                        if (i == 1 || i == 2)
+                    {
+                        i++;
+            <div class="col-md-6">
+                <div class="media">
+                    <div class="media-left">
+                        <a href="/Article/Show/@item.Id">
+                            <div class="smallRight">
+                                <img class="media-object" src="~/Content/mytemplate/img/@Url.Content(item.Image)"
+                                     alt="Generic placeholder image">
+                            </div>
+                            
+                        </a>
+                    </div>
+                    <div class="media-body">
+                        <span class="tag black"><a href="/Categories/Show/@item.CategoryId" target="_self">@item.Category.CategoryName</a></span>
+
+                        <h3 class="media-heading">
+                            <a href="/Article/Show/@item.Id" target="_self">
+                                @item.Title
+                            </a>
+                        </h3>
+                        <span class="media-date"><a>@item.Date</a>,  by: <a>@item.User.UserName</a></span>
+
+                        <div class="media_social">
+                            <span><a><i class="fa fa-comments-o"></i>@item.NrComm</a> Comments</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+                    }
+                    else
+                    { break; }
+                
+                    }
+                }
+
+            
+        </div>
+    </div>
+    <!-- Related news -->
+
+    <div class="media" id="my_anchor">
+        <div class="entity_inner__title">
+            <h2>Readers Comment</h2>
+        </div>
+        <!-- entity_title -->
+
+        @foreach (var item in ViewBag.Comments)
+        {
+            <hr />
+            <p>@item.CommentContent</p>
+            <div class="entity_meta">
+                @if (ViewBag.afisareButoane == true && Model.UserId == ViewBag.utilizatorCurent || ViewBag.esteAdmin || item.UserId == ViewBag.utilizatorCurent)
+                {
+                    <table>
+                        @if (item.UserId == ViewBag.utilizatorCurent)
+                        {
+                        <tr>
+                            <a class="btn btn-pink" href="/Article/EditComment/@item.CommentId">
+                                Edit
+                            </a>
+                            &nbsp;
+                        </tr>
+                        }
+                        <tr>
+                            <form method="post" action="/Article/DeleteComment/@item.CommentId">
+                                @Html.HttpMethodOverride(HttpVerbs.Delete)
+                                <button class="btn btn-pink" type="submit">Delete</button>
+                            </form>
+                        </tr>
+                    </table>
+                }
+
+                <p style="color: 0b70c5; float: right"> @item.CommentDate, by: @item.User.UserName</p>
+            </div>
+            <br />
+            <hr />
+        }
+        <!--Readers Comment-->
+
+        @Html.Partial("Comentariu")
+
+    </div>
+    <!--Left Section-->
+</div>

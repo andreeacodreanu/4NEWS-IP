@@ -1,0 +1,46 @@
+﻿
+
+    <section id="feature_news_section" class="feature_news_section">
+        <div class="container">
+            <div class="row">
+                @{
+                    int i = 0;
+
+                    foreach (ProiectIP.Models.Article article in ViewBag.Articles)
+                    {
+                        i++;
+
+                        if (i == 1)
+                        {
+                            <div class="col-md-7">
+                                @Html.Partial("Poza1", article)
+
+                            </div>
+                        }
+
+                        else if (i == 2)
+                        {
+                            <!-- col-md-7 -->
+                            <div class="col-md-5">
+                                @Html.Partial("Poza2", article)
+                            </div>
+                        }
+
+                        else if (i == 3)
+                        {
+                            <!-- col-md-5 -->
+                            <div class="col-md-5">
+                                @Html.Partial("Poza3", article)
+                            </div>
+                            <!-- col-md-5 -->
+                        }
+
+                        else { break; }
+
+                    }
+                }
+
+
+            </div>
+        </div>
+    </section>
