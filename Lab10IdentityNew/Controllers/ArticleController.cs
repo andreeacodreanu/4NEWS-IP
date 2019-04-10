@@ -127,7 +127,7 @@ namespace ProiectIP.Controllers
             ViewBag.ArticleUser = article.User.UserName;
             ViewBag.ArticleImage = article.Image;
 
-            //06.01.2019
+            
             
             var articlesLatestNews = db.Articles.Include("Category").Include("User").Where(a => a.Approved == "yes" && a.Link == null).OrderByDescending(a => a.Date);
             ViewBag.LatestNews = articlesLatestNews;
@@ -256,7 +256,7 @@ namespace ProiectIP.Controllers
             {
                 if (ModelState.IsValid)
                 {
-                    //06.01.2019
+                    
                     Article article = db.Articles.Find(comment.ArticleId);
                     article.NrComm = article.NrComm + 1;
                     //
@@ -368,9 +368,30 @@ namespace ProiectIP.Controllers
                     else
                         article.Approved = "yes";
 
-                    //06.01.2019
+                    
                     article.NrComm = 0;
-                    //
+                    
+                    //apel script python
+                    string progToRun = "C:\\Users\\Andreea\\Desktop\\Anul3\\ProiectIP2019\\Lab10IdentityNew\\script3.py";
+                    char[] splitter = { '\r' };
+
+                    Process proc = new Process();
+                    proc.StartInfo.FileName = "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\Python36_64\\python.exe";
+                    proc.StartInfo.RedirectStandardOutput = true;
+                    proc.StartInfo.UseShellExecute = false;
+
+                    // call script3.py to concatenate passed parameters
+                    proc.StartInfo.Arguments = string.Concat(progToRun, " ", article.Content);
+                    proc.Start();
+
+                    //StreamReader sReader = proc.StandardOutput;
+                    //string[] output = sReader.ReadToEnd().Split(splitter);
+
+                    StreamReader sReader = proc.StandardOutput;
+                    String[] output = sReader.ReadToEnd().Split(splitter);
+
+                    string text = System.IO.File.ReadAllText(@"C:\\Users\\Andreea\\Desktop\\Anul3\\ProiectIP2019\\Lab10IdentityNew\\file.txt");
+                    article.Resume = text;
 
                     
 
@@ -534,7 +555,7 @@ namespace ProiectIP.Controllers
 
             if (comment.UserId == User.Identity.GetUserId() || User.IsInRole("Administrator") || article.UserId == User.Identity.GetUserId())
             {
-                //06.01.2019
+                
                 //Article article = db.Articles.Find(comment.ArticleId);
                 article.NrComm = article.NrComm - 1;
                 
@@ -613,16 +634,7 @@ namespace ProiectIP.Controllers
             {
                 return View();
             }
-            //Comment comment = db.Comments.Find(id);
-            //if (comment.UserId == User.Identity.GetUserId() || User.IsInRole("Administrator"))
-            //{
 
-            //    db.SaveChanges();
-               
-            //    return RedirectToAction("Show/" + comment.ArticleId);
-            //}
-            //else
-            //    return RedirectToAction("Show/" + comment.ArticleId);
         }
 
 
