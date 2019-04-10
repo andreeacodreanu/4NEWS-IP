@@ -1,0 +1,78 @@
+﻿<section id="header_section_wrapper" class="header_section_wrapper">
+    <div class="container">
+        <div class="header-section">
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="left_section">
+                        <span class="date">
+                            @DateTime.Today.DayOfWeek
+                        </span>
+                        <span class="time">
+                            @DateTime.Now.Hour:@DateTime.Now.Minute
+                        </span>
+
+                        @Html.Partial("SocialMediaContact")
+                        <!-- Top Social Section -->
+                    </div>
+                    <!-- Left Header Section -->
+                </div>
+                <div class="col-md-4">
+                    <div class="logo">
+                        <a href="/Home"><img src="@Url.Content("~/Content/mytemplate/")img/4News_2.png" width="300" height="200" alt="4NEWS"></a>
+                    </div>
+                    <!-- Logo Section -->
+                </div>
+                <div class="col-md-4">
+                    <div class="right_section">
+                        <ul class="nav navbar-nav">
+                            @Html.Partial("_LoginPartial")
+
+                        </ul>
+
+                        <ul class="nav-cta hidden-xs">
+                            <li class="dropdown">
+                                <a href="#" data-toggle="dropdown" class="dropdown-toggle">
+                                    <i class="fa fa-search"></i>
+                                </a>
+                                <ul class="dropdown-menu">
+                                    <li>
+                                        <div class="head-search">
+                                            <form method="post" action="/Article/Index" >
+                                                <!-- Input Group -->
+                                                <div class="input-group">
+                                                    <input type="text" name="SearchString" class="form-control"
+                                                           placeholder="Type Something">
+                                                    <span class="input-group-btn">
+                                                        <button type="submit"
+                                                                class="btn btn-pink" value="Search">
+                                                            Search
+                                                        </button>
+                                                    </span>
+                                                </div>
+                                            </form>
+                                        </div>
+                                    </li>
+                                </ul>
+                            </li>
+                        </ul>
+                        <!-- Search Section -->
+                    </div>
+                    <!-- Right Header Section -->
+                </div>
+            </div>
+        </div>
+        <div >
+             @Html.Partial("headerCategorii")
+        </div>
+        @*@Html.Partial("headerCategorii")*@
+        <!-- .navigation-section -->
+    </div>
+    <!-- .container -->
+</section>
+<style>
+    .header {
+        background-color: #f1f1f1;
+        padding: 30px;
+        text-align: center;
+    }
+</style>

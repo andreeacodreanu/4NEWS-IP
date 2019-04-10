@@ -1,0 +1,109 @@
+﻿<!-- Header Section -->
+
+<div class="navigation-section" id="navbar"> 
+    <nav class="navbar m-menu navbar-default" >
+        <div class="container">
+            <!-- Brand and toggle get grouped for better mobile display -->
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse"
+                        data-target="#navbar-collapse-1">
+                    <span class="sr-only">Toggle navigation</span> <span class="icon-bar"></span> <span class="icon-bar"></span> <span class="icon-bar"></span>
+                </button>
+            </div>
+            <!-- Collect the nav links, forms, and other content for toggling -->
+
+            <div class="collapse navbar-collapse" id="#navbar-collapse-1">
+                <ul class="nav navbar-nav main-nav">
+                    <li>
+                        <a class="btn btn-sm" href="/Home"> News</a>
+                    </li>
+
+                    @if (ViewBag.Categories != null)
+                    {
+                        int i = 0;
+
+                        foreach (var category in ViewBag.Categories)
+                        {
+                            i++;
+                            <li>
+                                <a class="btn btn-sm" href="/Categories/Show/@category.CategoryId"> @category.CategoryName </a>
+
+                            </li>
+                            if (i == 5) { break; }
+                        }
+                    }
+
+                    <li class="dropdown m-menu-fw">
+                        <a href="/Categories/Index" data-toggle="dropdown" class="dropdown-toggle" onclick="moreBtn()">
+                            More
+                            <span><i class="fa fa-angle-down"></i></span>
+                        </a>
+                        <ul class="dropdown-menu" >
+                            <li>
+                                <div class="m-menu-content" >
+                                    <ul class="col-sm-3">
+                                        @if (ViewBag.Categories != null)
+                                        {
+                                            int i = 1;
+                                            foreach (var category in ViewBag.Categories)
+                                            {
+                                                if (i > 5)
+                                                {
+                                                    <li>
+                                                        <a class="btn btn-sm" href="/Categories/Show/@category.CategoryId"> @category.CategoryName </a>
+                                                    </li>
+                                                }
+                                                else
+                                                {
+                                                    i++;
+                                                }
+                                                
+                                            }
+                                        }
+                                    </ul>
+                                </div>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+            <!-- .navbar-collapse -->
+        </div>
+        <!-- .container -->
+    </nav>
+    <!-- .nav -->
+</div>
+<script>
+    function moreBtn() {
+        window.location.replace('/Categories/Index')
+    }
+    //window.onscroll = function () { myFunction() };
+
+    //var navbar = document.getElementById("navbar");
+    //var sticky = navbar.offsetTop;
+
+    //function myFunction() {
+    //    if (window.pageYOffset >= sticky) {
+    //        navbar.classList.add("sticky")
+    //    } else {
+    //        navbar.classList.remove("sticky");
+    //    }
+    //}
+
+
+    //// Get the container element
+    //var btnContainer = document.getElementById("#navbar-collapse-1");
+
+    //// Get all buttons with class="btn" inside the container
+    //var btns = btnContainer.getElementsByClassName("btn");
+    //console.log(btns);
+
+    //// Loop through the buttons and add the active class to the current/clicked button
+    //for (var i = 0; i < 6; i++) {
+    //    btns[i].addEventListener("click", function () {
+    //        var current = document.getElementsByClassName("active");
+    //        current[0].className = current[0].className.replace(" active", "");
+    //        this.className += " active";
+    //    });
+    //}
+</script>
